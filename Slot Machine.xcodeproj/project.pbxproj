@@ -19,6 +19,9 @@
 		E157E5452EB3A948004150BA /* spin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E157E53C2EB3A948004150BA /* spin.mp3 */; };
 		E157E5462EB3A948004150BA /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E157E53D2EB3A948004150BA /* win.mp3 */; };
 		E157E54A2EB3A996004150BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E157E5492EB3A996004150BA /* LaunchScreen.storyboard */; };
+		E157E54C2EB3AEB6004150BA /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E157E54B2EB3AEB6004150BA /* LogoView.swift */; };
+		E157E5502EB3AF08004150BA /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E157E54F2EB3AF08004150BA /* Modifiers.swift */; };
+		E157E5522EB3B386004150BA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E157E5512EB3B386004150BA /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,9 @@
 		E157E53C2EB3A948004150BA /* spin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = spin.mp3; sourceTree = "<group>"; };
 		E157E53D2EB3A948004150BA /* win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = win.mp3; sourceTree = "<group>"; };
 		E157E5492EB3A996004150BA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E157E54B2EB3AEB6004150BA /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
+		E157E54F2EB3AF08004150BA /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
+		E157E5512EB3B386004150BA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				E157E5212EB3A922004150BA /* ContentView.swift */,
+				E157E54B2EB3AEB6004150BA /* LogoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -111,6 +118,8 @@
 		E157E5482EB3A970004150BA /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				E157E54F2EB3AF08004150BA /* Modifiers.swift */,
+				E157E5512EB3B386004150BA /* Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -196,7 +205,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E157E5522EB3B386004150BA /* Extensions.swift in Sources */,
+				E157E5502EB3AF08004150BA /* Modifiers.swift in Sources */,
 				E157E5322EB3A922004150BA /* ContentView.swift in Sources */,
+				E157E54C2EB3AEB6004150BA /* LogoView.swift in Sources */,
 				E157E5332EB3A922004150BA /* Slot_MachineApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
