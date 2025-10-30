@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     // MARK: - PROPERTIES
-    @State private var showingInfoView: Bool = false
-    
     let symbols = ["gfx-bell", "gfx-cherry", "gfx-coin", "gfx-grape", "gfx-seven", "gfx-strawberry"]
+    let haptics = UINotificationFeedbackGenerator()
+    
     @State private var reels: Array = [0, 1, 2]
     @State private var highscore: Int = UserDefaults.standard.integer(forKey: "HighScore")
     @State private var coins: Int = 100
@@ -21,6 +21,7 @@ struct ContentView: View {
     @State private var showingModal: Bool = false
     @State private var animatingSymbol: Bool = false
     @State private var animatingModal: Bool = false
+    @State private var showingInfoView: Bool = false
     
     // MARK: - FUNCTIONS
     
@@ -33,6 +34,9 @@ struct ContentView: View {
         reels = reels.map({ _ in
             Int.random(in: 0...symbols.count - 1)
         })
+        
+        playSound(sound: "spin", type: "mp3")
+        haptics.notificationOccurred(.success)
     }
     
     // CHECK THE WINNING
@@ -44,6 +48,8 @@ struct ContentView: View {
             // NEW HIGHSCORE
             if coins > highscore {
                 newHighscore()
+            } else {
+                playSound(sound: "win", type: "mp3")
             }
         } else {
             // PLAYER LOSES
@@ -58,6 +64,7 @@ struct ContentView: View {
     func newHighscore() {
         highscore = coins
         UserDefaults.standard.set(highscore, forKey: "HighScore")
+        playSound(sound: "high-score", type: "mp3")
     }
     
     func playerLoses() {
@@ -68,18 +75,23 @@ struct ContentView: View {
         betAmmount = 20
         isActiveBet10 = false
         isActiveBet20 = true
+        playSound(sound: "casino-chips", type: "mp3")
+        haptics.notificationOccurred(.success)
     }
     
     func activateBet10() {
         betAmmount = 10
         isActiveBet10 = true
         isActiveBet20 = false
+        playSound(sound: "casino-chips", type: "mp3")
+        haptics.notificationOccurred(.success)
     }
     
     // GAME IS OVER
     func isGameOver() {
         if coins <= 0 {
             showingModal = true
+            playSound(sound: "game-over", type: "mp3")
         }
     }
 
@@ -88,6 +100,7 @@ struct ContentView: View {
         highscore = 0
         coins = 100
         activateBet10()
+        playSound(sound: "chimeup", type: "mp3")
     }
     
     // MARK: - BODY
@@ -146,6 +159,7 @@ struct ContentView: View {
                             .animation(.easeOut(duration: Double.random(in: 0.5...0.7)))
                             .onAppear {
                                 animatingSymbol.toggle()
+                                playSound(sound: "riseup", type: "mp3")
                             }
                     }
                     
