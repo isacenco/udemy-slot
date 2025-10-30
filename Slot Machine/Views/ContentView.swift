@@ -13,12 +13,11 @@ struct ContentView: View {
     
     let symbols = ["gfx-bell", "gfx-cherry", "gfx-coin", "gfx-grape", "gfx-seven", "gfx-strawberry"]
     @State private var reels: Array = [0, 1, 2]
-    @State private var highscore: Int = UserDefaults.standard.integer(forKey: "HighScore")
+    @State private var highscore: Int = 0
     @State private var coins: Int = 100
     @State private var betAmmount: Int = 10
     @State private var isActiveBet10: Bool = true
     @State private var isActiveBet20: Bool = false
-    @State private var showingModal: Bool = false
     
     // MARK: - FUNCTIONS
     
@@ -55,7 +54,6 @@ struct ContentView: View {
     
     func newHighscore() {
         highscore = coins
-        UserDefaults.standard.set(highscore, forKey: "HighScore")
     }
     
     func playerLoses() {
@@ -73,20 +71,8 @@ struct ContentView: View {
         isActiveBet10 = true
         isActiveBet20 = false
     }
-    
-    // GAME IS OVER
-    func isGameOver() {
-        if coins <= 0 {
-            showingModal = true
-        }
-    }
 
-    func resetGame() {
-        UserDefaults.standard.set(0, forKey: "HighScore")
-        highscore = 0
-        coins = 100
-        activateBet10()
-    }
+    // GAME IS OVER
     
     // MARK: - BODY
     var body: some View {
@@ -166,12 +152,7 @@ struct ContentView: View {
                     Button {
                         // SPIN THE REELS
                         spinReels()
-                        
-                        // CHECK WINNINGS
                         checkWinning()
-                        
-                        // GAME IS OVER
-                        isGameOver()
                     } label: {
                         Image("gfx-spin")
                             .renderingMode(.original)
@@ -228,7 +209,7 @@ struct ContentView: View {
             .overlay(
                 // RESET
                 Button(action: {
-                    resetGame()
+                    print("Reset Game")
                 }, label: {
                     Image(systemName: "arrow.2.circlepath.circle")
                         
@@ -248,71 +229,7 @@ struct ContentView: View {
                 , alignment: .topTrailing
             )
             .padding()
-            .frame(maxWidth: 720)
-            .blur(radius: $showingModal.wrappedValue ? 5 : 0, opaque: false)
-            
-            // MARK: - POPUP
-            if $showingModal.wrappedValue {
-                ZStack {
-                    Color("ColorTransparentBlack").edgesIgnoringSafeArea(.all)
-                }
-                
-                // MODAL
-                VStack(spacing: 0) {
-                    
-                    // TITLE
-                    Text("GAME OVER")
-                        .font(.system(.title, design: .rounded))
-                        .fontWeight(.heavy)
-                        .padding()
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .background(Color("ColorPink"))
-                        .foregroundColor(.white)
-                    
-                        Spacer()
-                    
-                    // MESSAGE
-                    VStack(alignment: .center, spacing: 16) {
-                        Image("gfx-seven-reel")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxHeight: 72)
-                        
-                        Text("Bad luck! You lost all of the coins. \nLet's play again")
-                            .font(.system(.body, design: .rounded))
-                            .lineLimit(2)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.gray)
-                            .layoutPriority(1)
-                            
-                        Button {
-                            showingModal = false
-                            coins = 100
-                        } label: {
-                            Text("New Game".uppercased())
-                                .font(.system(.body, design: .rounded))
-                                .fontWeight(.semibold)
-                                .accentColor(Color("ColorPink"))
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 8)
-                                .frame(minWidth: 128)
-                                .background(
-                                    Capsule()
-                                        .strokeBorder(lineWidth: 1.75)
-                                        .foregroundColor(Color("ColorPink"))
-                                )
-                        }
-
-                    }
-                    
-                    Spacer()
-                }
-                .frame(minWidth: 280, idealWidth: 280, maxWidth: 320, minHeight: 260, idealHeight: 280, maxHeight: 320, alignment: .center)
-                .background(Color.white)
-                .cornerRadius(20)
-                .shadow(color: Color("ColorTransparentBlack"), radius: 6, x: 0, y: 8)
-            }
-            
+            .frame(maxWidth: 640)
         } //: ZSTACK
         .sheet(isPresented: $showingInfoView) {
             InfoView()
