@@ -13,7 +13,7 @@ struct ContentView: View {
     
     let symbols = ["gfx-bell", "gfx-cherry", "gfx-coin", "gfx-grape", "gfx-seven", "gfx-strawberry"]
     @State private var reels: Array = [0, 1, 2]
-    @State private var highscore: Int = UserDefaults.standard.integer(forKey: "HighScore")
+    @State private var highscore: Int = 0
     @State private var coins: Int = 100
     @State private var betAmmount: Int = 10
     @State private var isActiveBet10: Bool = true
@@ -57,7 +57,6 @@ struct ContentView: View {
     
     func newHighscore() {
         highscore = coins
-        UserDefaults.standard.set(highscore, forKey: "HighScore")
     }
     
     func playerLoses() {
@@ -75,20 +74,8 @@ struct ContentView: View {
         isActiveBet10 = true
         isActiveBet20 = false
     }
-    
-    // GAME IS OVER
-    func isGameOver() {
-        if coins <= 0 {
-            showingModal = true
-        }
-    }
 
-    func resetGame() {
-        UserDefaults.standard.set(0, forKey: "HighScore")
-        highscore = 0
-        coins = 100
-        activateBet10()
-    }
+    // GAME IS OVER
     
     // MARK: - BODY
     var body: some View {
@@ -263,7 +250,7 @@ struct ContentView: View {
             .overlay(
                 // RESET
                 Button(action: {
-                    resetGame()
+                    print("Reset Game")
                 }, label: {
                     Image(systemName: "arrow.2.circlepath.circle")
                         
